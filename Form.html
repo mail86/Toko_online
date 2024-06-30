@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>belanja online</title>
+</head>
+  <style>
+    *{
+      font-family: Arial, sans-serif;
+    }
+    form{
+      margin: 15px 5px;
+      width: 500px;
+      font-size: 16px;
+    }
+    form h1{
+      text-align: center;
+    }
+    form label{
+      display: block;
+      margin-bottom: 5px;
+    }
+    form input, form textarea{
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    form button{
+      background: blue;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover{
+      background: red;
+    }
+  </style>
+  <body>
+    <form>
+      <h1>KIRIM DATA LENGKAP ANDA DISINI</h1>
+      <label for="">NAMA</label>
+      <input type="text" class="nama">
+
+      <label for="">ALAMAT</label>
+      <input type="text" class="alamat">
+
+      <label for="">WhatsApp</label>
+      <input type="text" class="whatsapp">
+
+      <label for="">PESAN</label>
+      <textarea class="pesan"></textarea>
+      <button type="button" onclick="sendwhatsapp();">KIRIM</button>
+    </form>
+
+    <script>
+      function sendwhatsapp(){
+       var phonenumber = "+6283821777668";
+
+       var nama = document.querySelector(".nama").value;
+       var alamat = document.querySelector(".alamat").value;
+       var whatsapp = document.querySelector(".whatsapp").value;
+       var pesan = document.querySelector(".pesan").value;
+
+       var url = "https://wa.me/" + phonenumber + "?text="
+       +"*Nama :* "+nama+"%0a"
+       +"*Alamat :* "+alamat+"%0a"
+       +"*Whatsapp:* "+whatsapp+"%0a"
+       +"*Pesan :* "+pesan
+       +"%0a%0a"
+       +"KIRIM SEKARANG =====>>";
+
+       window.open(url, '_blank').focus();
+     }
+    </script>
+  </body>
+</html>
