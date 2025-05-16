@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keranjang Belanja - Kue Manis Legit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fffaf7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: #ffe6ea;
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: #ff5c8a;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #ff5c8a;
+    }
+    main {
+      padding: 1.5rem;
+    }
+    .table-wrapper {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+      min-width: 600px;
+    }
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #ffdae3;
+    }
+    tfoot td {
+      font-weight: bold;
+    }
+    .checkout {
+      text-align: right;
+      margin-top: 1rem;
+    }
+    .checkout button {
+      background-color: #ff5c8a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .checkout button:hover {
+      background: #5cff6a;
+    }
+    
+    .btn-group button {
+      background-color: #ddd;
+      border: none;
+      padding: 0.3rem 0.7rem;
+      margin: 0 2px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .btn-group button:hover {
+      background-color: #bbb;
+    }
+    .delete-btn {
+      background-color: #ccc;
+      color: #333;
+      padding: 0.3rem 0.7rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 5px;
+    }
+    .delete-btn:hover {
+      background-color: #999;
+    }
+    #checkout-form {
+      display: none;
+      padding: 2rem;
+      background: #ffe6ea;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+    #checkout-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    #checkout-form input,
+    #checkout-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    #checkout-form button {
+      background-color: #5cff6a;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    #checkout-form button:hover {
+      background: blue;
+    }
+    #checkout-form #cancelCheckout {
+      background-color: #ccc;
+      color: #333;
+      margin-left: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #ffe6ea;
+      margin-top: 2rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 0.5rem;
+      }
+      .checkout {
+        text-align: center;
+      }
+      .checkout button {
+        width: 100%;
+      }
+      table {
+        font-size: 0.9rem;
+      }
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kue Manis Legit</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="beli.html">Belanja</a>
+      <a href="#">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Keranjang Belanja</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Produk</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Total</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Total Bayar</td>
+            <td id="total-bayar">Rp 0</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="checkout">
+      <a href="formulir.html" id="checkoutBtn" style="text-decoration:none;">
+        <button>Lanjut ke Checkout</button>
+      </a>
+    </div>
+
+    <div id="checkout-form">
+      <h3>Form Data Pembeli</h3>
+      <form id="formCheckout">
+        <label for="nama">Nama Lengkap:</label>
+        <input type="text" id="nama" name="nama" required />
+
+        <label for="alamat">Alamat:</label>
+        <textarea id="alamat" name="alamat" rows="3" required></textarea>
+
+        <label for="telepon">No. Telepon:</label>
+        <input type="tel" id="telepon" name="telepon" required />
+
+        <button type="submit">Kirim Pesanan</button>
+        <button type="button" id="cancelCheckout">Batal</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Mailda Turohman. Semua hak dilindungi.</p>
+  </footer>
+
+  <script>
+    const waNumber = '6283821777668';
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const tbody = document.getElementById('cart-items');
+      const totalBayar = document.getElementById('total-bayar');
+      let total = 0;
+      tbody.innerHTML = '';
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>Rp ${item.price.toLocaleString()}</td>
+          <td>
+            <div class="btn-group">
+              <button onclick="updateQty(${index}, -1)">-</button>
+              ${item.quantity}
+              <button onclick="updateQty(${index}, 1)">+</button>
+            </div>
+          </td>
+          <td>Rp ${itemTotal.toLocaleString()}</td>
+          <td><button class="delete-btn" onclick="removeItem(${index})">Hapus</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+      totalBayar.textContent = `Rp ${total.toLocaleString()}`;
+    }
+
+    function updateQty(index, change) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity < 1) cart[index].quantity = 1;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('Keranjang Anda kosong!');
+      }
+    });
+
+    document.getElementById('cancelCheckout')?.addEventListener('click', () => {
+      document.getElementById('checkout-form').style.display = 'none';
+      document.querySelector('.checkout').style.display = 'block';
+    });
+
+    document.getElementById('formCheckout')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+      const telepon = document.getElementById('telepon').value.trim();
+
+      if (!nama || !alamat || !telepon) {
+        alert('Mohon isi semua data dengan lengkap.');
+        return;
+      }
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        alert('Keranjang Anda kosong!');
+        return;
+      }
+
+      let pesan = `Halo, saya ingin memesan:\n\n`;
+      cart.forEach(item => {
+        pesan += `- ${item.name} x ${item.quantity}\n`;
+      });
+      pesan += `\nNama: ${nama}\nAlamat: ${alamat}\nNo. Telepon: ${telepon}`;
+
+      const urlWa = `https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`;
+
+      window.open(urlWa, '_blank');
+
+      localStorage.removeItem('cart');
+      loadCart();
+      document.getElementById('formCheckout').reset();
+      document.getElementById('checkout-form').style.display = 'none';
+      document.querySelector('.checkout').style.display = 'block';
+
+      alert('Pesanan Anda telah dikirim via WhatsApp. Terima kasih!');
+    });
+
+    loadCart();
+  </script>
+</body>
+</html>

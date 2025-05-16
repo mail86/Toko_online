@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>toko kue online</title>
+
+    <!-- fonts  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap"
+      rel="stylesheet"
+    />
+    <!--  feather icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!--  my style -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="js/script.js"></script>
+  </head>
+  <body class="body">
+    <!--  navbar start -->
+    <nav class="navbar">
+      <a href="#" class="navbar-logo">KUE MANIS<span>LEGIT</span>.</a>
+
+      <div class="navbar-nav active">
+        
+        <a href="#home">HOME</a>
+
+        <a href="#about">tentang kami</a>
+
+        <a href="#menu">VARIAN</a>
+
+        <a href="#contact">ALAMAT</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+    </nav>
+    <!--  navbar end -->
+
+
+    <!--Hero Section stars-->
+
+
+          <section class="hero" id="home">
+          <main class="content">
+            <h1> MARI MAKAN <span>KUE</span></h1>
+            <p> manislezat dan nikmat komo lamun jeung kopi udud</p>
+            <a href="beli.html" class="cta">BELI SEKARANG</a>
+          </main>
+          </section>
+
+    <!--Hero Section end-->
+
+
+    <!-- About Section start -->
+        <section id="about" class="about">
+          <h2><span> TENTANG</span> KAMI</h2>
+
+          <div class="row">
+            <div class="about-img">
+              <img src="img/bolu.jpg " alt="Tentang kami">
+            </div>
+            <div class="content">
+              <h3>kenapa memilih produk kami</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam in velit modi quod? Delectus, minima.</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nemo exercitationem! Animi eum cum perferendis autem, unde ut blanditiis libero?</p>
+            </div>
+          </div>
+        </section>
+
+    <!-- About Section end -->
+
+    <!-- Menu Section start-->
+     <section id="menu" class="menu">
+    
+    <h2><span> MENU </span> KAMI</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+      Vel eaque ipsa cum nihil, facilis temporibus.</p>
+        <div class="row">
+
+         <div class="menu-card">
+          <img src="menu/1.jpg" alt="bolu keju" class="menu-card-img">
+          <h3 class="menu-card-title"> -bolu keju- </h3>
+          <p class="menu-card-price">IDR  rp20.000</p>
+         </div> 
+         <div class="menu-card">
+          <img src="menu/1.jpg" alt="bolu keju" class="menu-card-img">
+          <h3 class="menu-card-title"> -bolu keju- </h3>
+          <p class="menu-card-price">IDR  rp20.000</p>
+         </div> 
+         <div class="menu-card">
+          <img src="menu/1.jpg" alt="bolu keju" class="menu-card-img">
+          <h3 class="menu-card-title"> -bolu keju- </h3>
+          <p class="menu-card-price">IDR  rp20.000</p>
+         </div> 
+          
+
+        </div>
+     </section>
+
+        <!-- Menu Section end-->
+        <!-- Contact Section star-->
+        <section id="contact" class="contact">
+          <h2><span> KONTAK </span> KAMI</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+      Vel eaque ipsa cum nihil, facilis temporibus.</p>
+        <div class="row">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.126883609676!2d107.35788627370825!3d-6.754377366044356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e690199177aff89%3A0x944869c55ca0bcbe!2sJl.%20Cipeundeuy%20-%20Cikalong%20Wetan%2C%20Bojongmekar%2C%20Kecamaten%20Cipeundeuy%2C%20Kabupaten%20Bandung%20Barat%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1718976927682!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+
+        </section>
+
+        <!-- Contact Section end-->
+
+<!-- Footer start -->
+ 
+<footer>
+  <div class="socials">
+    <a href="#"><i data-feather="facebook"></i></a>
+
+    <a href="#"><i data-feather="twitter"></i></a>
+
+    <a href="#"><i data-feather="instagram"></i></a>
+  </div>
+
+  <div class="links">
+    <a href="#home">Home</a>
+    <a href="#about">Tentang Kami</a>
+    <a href="#menu">Menu</a>
+    <a href="#contact">kontact</a>
+  </div>
+
+    <div class="credit">
+      <P> Created by_<a href="">mailda turohman.</a> | &copy; 2024.</P>
+    </div>
+  
+ </footer>
+
+<!-- Footer end -->
+
+
+    <!-- feather icons -->
+    <script>
+      feather.replace();
+    </script>
+    <!-- My javascript -->
+    <script src='js/script.js'></script>
+    
+  </body>
+</html>
