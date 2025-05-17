@@ -76,6 +76,11 @@
   </style>
 </head>
 <body>
+   <!-- Musik latar -->
+  <audio id="bgMusic" loop>
+    <source src="Swing.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung elemen audio.
+  </audio>
 
   <header>
     <h1>Kue Manis Legit</h1>
@@ -136,6 +141,25 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       window.location.href = 'keranjang.html';
     }
+// Musik otomatis main saat interaksi user
+    function initMusicOnInteraction() {
+      const audio = document.getElementById('bgMusic');
+      const playAttempt = audio.play();
+      if (playAttempt !== undefined) {
+        playAttempt.then(() => {
+          document.removeEventListener('scroll', initMusicOnInteraction);
+          document.removeEventListener('touchstart', initMusicOnInteraction);
+          document.removeEventListener('click', initMusicOnInteraction);
+        }).catch((error) => {
+          console.log('Autoplay ditolak:', error);
+        });
+      }
+    }
+
+    document.addEventListener('scroll', initMusicOnInteraction);
+    document.addEventListener('touchstart', initMusicOnInteraction);
+    document.addEventListener('click', initMusicOnInteraction);
+    
   </script>
 
 </body>
