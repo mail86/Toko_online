@@ -130,6 +130,12 @@
   </style>
 </head>
 <body>
+  <!-- Musik latar -->
+<audio id="bgMusic" >
+  <source src="suara.mp3" type="audio/mpeg">
+  Browser Anda tidak mendukung elemen audio.
+</audio>
+  
   <header>
     <h1>Kue Manis Legit</h1>
     <nav>
@@ -185,5 +191,26 @@
     </div>
     <p>&copy; 2024 Mailda Turohman. All rights reserved.</p>
   </footer>
+<script>
+    // Musik otomatis main saat interaksi user
+    function initMusicOnInteraction() {
+      const audio = document.getElementById('bgMusic');
+      const playAttempt = audio.play();
+      if (playAttempt !== undefined) {
+        playAttempt.then(() => {
+          document.removeEventListener('scroll', initMusicOnInteraction);
+          document.removeEventListener('touchstart', initMusicOnInteraction);
+          document.removeEventListener('click', initMusicOnInteraction);
+        }).catch((error) => {
+          console.log('Autoplay ditolak:', error);
+        });
+      }
+    }
+
+    document.addEventListener('scroll', initMusicOnInteraction);
+    document.addEventListener('touchstart', initMusicOnInteraction);
+    document.addEventListener('click', initMusicOnInteraction);
+  </script>
+  
 </body>
 </html>
