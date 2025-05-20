@@ -138,14 +138,7 @@
 </head>
 <body>
   <!-- Musik latar -->
-<audio id="bgMusic">
-  <source src="sunda_19052025.mp3" type="audio/mpeg">
-  Browser Anda tidak mendukung elemen audio.
-</audio>
-  <audio id="bgMusic" loop>
-  <source src="suara.mp3" type="audio/mpeg">
-  Browser Anda tidak mendukung elemen audio.
-  </audio>
+ <audio id="bgMusic" ></audio>
   
   <header>
     <h1>Kue Manis Legit</h1>
@@ -203,25 +196,39 @@
     <p>&copy; 2024 Mailda Turohman. All rights reserved.</p>
   </footer>
 <script>
-    // Musik otomatis main saat interaksi user
-    function initMusicOnInteraction() {
-      const audio = document.getElementById('bgMusic');
-      const playAttempt = audio.play();
-      if (playAttempt !== undefined) {
-        playAttempt.then(() => {
-          document.removeEventListener('scroll', initMusicOnInteraction);
-          document.removeEventListener('touchstart', initMusicOnInteraction);
-          document.removeEventListener('click', initMusicOnInteraction);
-        }).catch((error) => {
-          console.log('Autoplay ditolak:', error);
-        });
-      }
-    }
+  // Mainkan musik saat interaksi pengguna
+  
+  const playlist = ['suara.mp3', 'pym2.mp3'];
+  let currentTrack = 0;
 
-    document.addEventListener('scroll', initMusicOnInteraction);
-    document.addEventListener('touchstart', initMusicOnInteraction);
-    document.addEventListener('click', initMusicOnInteraction);
-  </script>
+  const audio = document.getElementById('bgMusic');
+  audio.src = playlist[currentTrack];
+
+  function playNextTrack() {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    audio.src = playlist[currentTrack];
+    audio.play();
+  }
+
+  audio.addEventListener('ended', playNextTrack);
+
+  function initMusicOnInteraction() {
+    const playAttempt = audio.play();
+    if (playAttempt !== undefined) {
+      playAttempt.then(() => {
+        document.removeEventListener('scroll', initMusicOnInteraction);
+        document.removeEventListener('touchstart', initMusicOnInteraction);
+        document.removeEventListener('click', initMusicOnInteraction);
+      }).catch((error) => {
+        console.log('Autoplay ditolak:', error);
+      });
+    }
+  }
+
+  document.addEventListener('scroll', initMusicOnInteraction);
+  document.addEventListener('touchstart', initMusicOnInteraction);
+  document.addEventListener('click', initMusicOnInteraction);
+</script>
   <img src="img/halo.png" alt="Hubungi Kami" class="floating-character">
 
 </body>
