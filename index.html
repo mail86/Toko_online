@@ -127,6 +127,13 @@
     .socials a:hover {
       color: #ff3366;
     }
+ .floating-character {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  z-index: 1000;
+}    
   </style>
 </head>
 <body>
@@ -215,6 +222,7 @@
     document.addEventListener('touchstart', initMusicOnInteraction);
     document.addEventListener('click', initMusicOnInteraction);
   </script>
-  
+  <img src="img/halo.png" alt="Hubungi Kami" class="floating-character">
+
 </body>
 </html>
