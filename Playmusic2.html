@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pemutar Musik Pintar</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      padding: 30px;
+      text-align: center;
+    }
+    .container {
+      max-width: 720px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+      color: #343a40;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 8px 0;
+      padding: 10px 15px;
+      background: #f1f3f5;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li:hover {
+      background: #dee2e6;
+    }
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: #e03131;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    audio {
+      width: 100%;
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      font-size: 16px;
+    }
+    .controls {
+      margin: 20px 0;
+    }
+    .controls button {
+      margin: 0 10px;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #228be6;
+      color: white;
+      transition: background 0.3s;
+    }
+    .controls button:hover {
+      background-color: #1864ab;
+    }
+    .playlist {
+      margin-top: 30px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎶 Pemutar Musik Pintar</h1>
+
+    <input
+      type="text"
+      id="searchBox"
+      placeholder="🔍 Cari judul lagu..."
+      onkeyup="globalSearch()"
+    />
+
+    <h2>Pilih Artis</h2>
+    <ul>
+      <li onclick="showSongs('adaband')">Ada Band</li>
+      <li onclick="showSongs('dewa19')">Dewa 19</li>
+      <li onclick="showSongs('HijauDaun')">Hijau Daun</li>
+    </ul>
+
+    <div id="songList"></div>
+
+    <div class="controls">
+      <button onclick="shufflePlaylist()">🔀 Shuffle</button>
+      <button onclick="skipSong()">⏭️ Skip</button>
+    </div>
+
+    <div class="playlist">
+      <h3>🎧 Antrian Lagu:</h3>
+      <ul id="playlistDisplay"></ul>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+  </div>
+
+  <script>
+    const songs = {
+      adaband: [
+        { title: "Manusia Bodoh", src: "Musik/Manusia Bodoh.mp3" },
+        { title: "Karena Wanita", src: "Musik/Karena Wanita.mp3"},
+        { title: "Haruskah Kumati", src: "Musik/Haruskah Kumati.mp3" },
+        { title: "Masih", src: "Musik/Masih.mp3" },
+        { title: "Pemain Cinta", src: "Musik/Pemain Cinta.mp3" },
+        { title: "Pemujamu", src: "Musik/Pemujamu.mp3" },
+        { title: "Setengah Hati", src: "Musik/Setengah Hati.mp3" },
+        { title: "Surga Cinta", src: "Musik/Surga Cinta.mp3" },
+        { title: "Tak Bisa Lagi", src: "Musik/Tak Bisa Lagi.mp3" },
+        { title: "Yang Terbaik Bagimu", src: "Musik/Yang Terbaik Bagimu.mp3" },
+      ],
+      dewa19: [
+        { title: "Kosong", src: "Musik/Kosong.mp3" },
+        { title: "Separuh Nafas", src: "Musik/Separuh Nafas.mp3" },
+        { title: "Aku Cinta Kau dan Dia", src: "Musik/Aku Cinta Kau dan Dia.mp3" },
+        { title: "Cemburu", src: "Musik/Cemburu.mp3" },
+        { title: "Kirana", src: "Musik/Kirana.mp3" },
+        { title: "Pangeran Cinta", src: "Musik/Pangeran Cinta.mp3" },
+        { title: "Pupus", src: "Musik/Pupus.mp3" },
+        { title: "Risalah Hati", src: "Musik/Risalah Hati.mp3" },
+        { title: "Satu", src: "Musik/Satu.mp3" },
+      ],
+      HijauDaun: [
+        { title: "Ilusi Tak Bertepi", src: "Musik/ilusi Tak Bertepi.mp3" },
+        { title: "Suara", src: "Musik/Suara.mp3" },
+      ]
+    };
+
+    const playlist = [];
+    const audioPlayer = document.getElementById("audioPlayer");
+    const playlistDisplay = document.getElementById("playlistDisplay");
+
+    let currentArtistSongs = [];
+
+    function showSongs(artistKey) {
+      currentArtistSongs = songs[artistKey];
+      renderSongList(currentArtistSongs);
+    }
+
+    function renderSongList(songArray) {
+      const songListDiv = document.getElementById("songList");
+      songListDiv.innerHTML = "<h3>Pilih Lagu:</h3><ul>";
+      songArray.forEach((song) => {
+        songListDiv.innerHTML += `<li onclick="addToPlaylist('${song.title}', '${song.src}')">${song.title}</li>`;
+      });
+      songListDiv.innerHTML += "</ul>";
+    }
+
+    function addToPlaylist(title, src) {
+      playlist.push({ title, src });
+      savePlaylist();
+      updatePlaylistDisplay();
+      if (audioPlayer.paused && !audioPlayer.src) {
+        playNext();
+      }
+    }
+
+    function removeFromPlaylist(index) {
+      playlist.splice(index, 1);
+      savePlaylist();
+      updatePlaylistDisplay();
+    }
+
+    function updatePlaylistDisplay() {
+      playlistDisplay.innerHTML = "";
+      playlist.forEach((song, index) => {
+        playlistDisplay.innerHTML += `
+          <li>
+            ${index + 1}. ${song.title}
+            <button class="remove-btn" onclick="removeFromPlaylist(${index})">❌</button>
+          </li>`;
+      });
+    }
+
+    function playNext() {
+      if (playlist.length > 0) {
+        const next = playlist.shift();
+        audioPlayer.src = next.src;
+        audioPlayer.play();
+        savePlaylist();
+        updatePlaylistDisplay();
+      } else {
+        audioPlayer.src = "";
+      }
+    }
+
+    function skipSong() {
+      audioPlayer.pause();
+      playNext();
+    }
+
+    function shufflePlaylist() {
+      for (let i = playlist.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [playlist[i], playlist[j]] = [playlist[j], playlist[i]];
+      }
+      updatePlaylistDisplay();
+      savePlaylist();
+    }
+
+    function savePlaylist() {
+      localStorage.setItem("playlist", JSON.stringify(playlist));
+    }
+
+    function loadPlaylist() {
+      const saved = JSON.parse(localStorage.getItem("playlist"));
+      if (saved && Array.isArray(saved)) {
+        playlist.push(...saved);
+        updatePlaylistDisplay();
+      }
+    }
+
+    audioPlayer.addEventListener("ended", playNext);
+
+    function globalSearch() {
+      const keyword = document.getElementById("searchBox").value.toLowerCase().trim();
+      const songListDiv = document.getElementById("songList");
+
+      if (keyword === "") {
+        songListDiv.innerHTML = "";
+        return;
+      }
+
+      let results = [];
+
+      for (const artist in songs) {
+        for (const song of songs[artist]) {
+          if (song.title.toLowerCase().startsWith(keyword)) {
+            results.push(song);
+          }
+        }
+      }
+
+      if (results.length > 0) {
+        songListDiv.innerHTML = "<h3>Hasil Pencarian:</h3><ul>";
+        results.forEach((song) => {
+          songListDiv.innerHTML += `<li onclick="addToPlaylist('${song.title}', '${song.src}')">${song.title}</li>`;
+        });
+        songListDiv.innerHTML += "</ul>";
+      } else {
+        songListDiv.innerHTML = "<p>Tidak ada lagu ditemukan.</p>";
+      }
+    }
+
+    // Load saved playlist saat halaman dibuka
+    loadPlaylist();
+  </script>
+</body>
+</html>
